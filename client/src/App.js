@@ -6,7 +6,7 @@ import BookDetails from './components/BooksDetails';
 import NewAdditions from './components/NewAdditions';
 import Library from './components/Library';
 import Home from './components/Home';
-
+import Genres from './components/Genres';
 const App = () => {
     return (
         <Router>
@@ -43,6 +43,7 @@ const App = () => {
                             element={<NewAdditions />}
                         />
                         <Route path="/library" element={<Library />} />
+                        <Route path="/genres" element={<Genres />} />
                     </Routes>
                 </div>
             </div>
