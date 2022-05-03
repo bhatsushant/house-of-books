@@ -7,8 +7,9 @@ import NewAdditions from './components/NewAdditions';
 import BooksList from './components/BooksList';
 import Home from './components/Home';
 import Library from './components/Library';
+import MostPopular from './components/MostPopular';
+import RecentBooks from './components/RecentBooks';
 import Genres from './components/Genres';
-
 const App = () => {
     return (
         <Router>
@@ -27,20 +28,40 @@ const App = () => {
                     <Link className="showlink" to="/library">
                         Library
                     </Link>
+                    <Link className="showlink" to="/books/mostPopular">
+                        Popular Books
+                    </Link>
+                    <Link className="showlink" to="/books/recents">
+                        Recently Viewed
+                    </Link>
                 </header>
                 <br />
                 <br />
                 <div className="App-body">
                     <Routes>
                         <Route exact path="/" element={<Home />} />
-                        <Route path="/books" element={<BooksList />} />
-                        <Route path="/books/:id" element={<BookDetails />} />
+                        <Route exact path="/books" element={<BooksList />} />
                         <Route
+                            exact
+                            path="/books/:id"
+                            element={<BookDetails />}
+                        />
+                        <Route
+                            exact
                             path="/books/newAdditions"
                             element={<NewAdditions />}
                         />
-                        <Route path="/library" element={<Library />} />
-
+                        <Route exact path="/library" element={<Library />} />
+                        <Route
+                            exact
+                            path="/books/mostPopular"
+                            element={<MostPopular />}
+                        />
+                        <Route
+                            exact
+                            path="/books/recents"
+                            element={<RecentBooks />}
+                        />
                         <Route path="/genres" element={<Genres />} />
                     </Routes>
                 </div>
