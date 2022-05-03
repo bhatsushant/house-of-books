@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
 
-async function Genres() {
-    try {
-        const url = `http://localhost:4000/genres`;
-        const data = await axios.get(url);
-        console.log(data);
-        // setBookDetailsData(data);
-        // setLoading(false);
-    } catch (e) {
-        console.log(e);
+const Genres = () => {
+    async function fetch() {
+        try {
+            const url = `http://localhost:4000/genres`;
+            const data = await axios.get(url);
+            console.log(data);
+            // setBookDetailsData(data);
+            // setLoading(false);
+        } catch (e) {
+            console.log(e);
+        }
     }
+    fetch();
 
     return <div></div>;
-}
+};
 
 export default Genres;
