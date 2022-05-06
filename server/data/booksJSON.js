@@ -532,7 +532,7 @@ const DataObjectCreation = async () => {
                 yearPublished: eachBook['Year Published'],
             };
             results.push(newObject);
-            console.log(newObject);
+            // console.log(results);
         } catch (e) {
             console.log(e);
         }
@@ -540,4 +540,6 @@ const DataObjectCreation = async () => {
     return results;
 };
 
-DataObjectCreation();
+// DataObjectCreation();
+
+module.exports = { DataObjectCreation };

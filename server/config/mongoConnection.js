@@ -1,8 +1,9 @@
-const MongoClient = require("mongodb").MongoClient;
+const MongoClient = require('mongodb').MongoClient;
 
 const mongoConfig = {
-    serverUrl: "mongodb://localhost:27017/",
-    database: "house_of_books",
+    serverUrl:
+        'mongodb+srv://tanay:xegSb0UONmKCP79a@cluster0.p7rwd.mongodb.net/house_of_books?retryWrites=true&w=majority',
+    database: 'house_of_books',
 };
 
 let _connection = undefined;

@@ -6,7 +6,7 @@ const genreRoutes = require('./genres');
 
 const constructorMethod = (app) => {
     app.use('/books', bookRoutes);
-    app.use('/user', userRoutes);
+    app.use('/users', userRoutes);
     app.use('/library', rentedBookRoutes);
     app.use('/review', reviewRoutes);
     app.use('/genres', genreRoutes);
