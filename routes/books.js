@@ -4,13 +4,7 @@ const booksData = require('../data/books');
 const { ObjectId } = require('mongodb');
 const redis = require('redis');
 
-const client = redis.createClient({
-    url: process.env.REDIS_URL,
-    socket: {
-        rejectUnauthorized: false,
-    },
-});
-
+const client = new Redis(process.env.REDIS_URL);
 (async () => {
     await client.connect();
 })();
