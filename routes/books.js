@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const booksData = require('../data/books');
 const { ObjectId } = require('mongodb');
-const Redis = require('redis');
+const redis = require('redis');
 
-const client = new Redis(process.env.REDIS_URL);
+const client = new redis(process.env.REDIS_URL);
 (async () => {
     await client.connect();
 })();
