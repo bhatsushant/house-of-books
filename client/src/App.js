@@ -9,6 +9,7 @@ import MostPopular from './components/MostPopular';
 import RecentBooks from './components/RecentBooks';
 import Navigation from './components/Navigation';
 import Authentication from './components/Authentication';
+import './App.css';
 
 const App = () => {
     return (
@@ -32,7 +33,6 @@ const App = () => {
                     element={<MostPopular />}
                 />
                 <Route exact path="/books/recents" element={<RecentBooks />} />
-                <Route path="/genres" element={<Genres />} />
             </Routes>
         </div>
     );
