@@ -14,12 +14,11 @@ app.use(express.urlencoded({ extended: true }));
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
     const path = require('path');
+    configRoutes(app);
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+        res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
     });
 }
-
-configRoutes(app);
 
 app.listen(process.env.PORT || 4000, () => {
     console.log("We've now got a server!");
