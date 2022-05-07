@@ -42,7 +42,7 @@ const main = async () => {
         const allBooks = await books.addNewBook(
             "149192912",
             "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1459115220l/27968891.jpg",
-            "Test123",
+            "How google runs",
             "Betsy Beyer",
             4.23,
             "Paperback",
@@ -53,6 +53,7 @@ const main = async () => {
             "O'Reilly Media",
             "Site Reliability Engineering: How Google Runs Production Systems",
             2016,
+            true,
             true,
             true
         );

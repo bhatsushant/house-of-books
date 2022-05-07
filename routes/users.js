@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const userData = require("../data/users");
 const {ObjectId} = require("mongodb");
-const imageData = require("../graphics");
 
 stateList = [
     "AL",
@@ -147,9 +146,6 @@ router.post("/signup", async (req, res) => {
     }
 
     try {
-        let initials = firstName[0] + lastName[0];
-        console.log(initials);
-        let image = imageData.createImage(initials);
         const newUser = await userData.createUser(
             firstName,
             lastName,
@@ -160,8 +156,7 @@ router.post("/signup", async (req, res) => {
             address,
             city,
             state,
-            zip,
-            "/server/imgs/initials.png"
+            zip
         );
         res.status(200).json(newUser);
     } catch (e) {

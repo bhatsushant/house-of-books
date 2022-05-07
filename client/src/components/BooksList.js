@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import noImage from '../assets/images/no-image.jpeg';
+import noImage from '../img/download.jpeg';
 import {
     makeStyles,
     Card,
@@ -10,7 +10,9 @@ import {
     CardContent,
     CardMedia,
     Typography,
+    CardHeader,
 } from '@material-ui/core';
+import '../App.css';
 const useStyles = makeStyles({
     card: {
         maxWidth: 550,

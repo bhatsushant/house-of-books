@@ -155,7 +155,7 @@ async function getNewAddition() {
 
     const booksList = await booksCollection
         .find({
-            originalPublicationYear: {$gte: 2016},
+            newAddition: true,
         })
         .toArray();
     if (booksList.length === 0) {
@@ -205,6 +205,7 @@ function validateBookCreations(
     publisher,
     title,
     yearPublished,
+    newAddition,
     popular,
     availableForRent
 ) {
@@ -221,6 +222,7 @@ function validateBookCreations(
     validateNumberParams(originalPublicationYear, "originalPublicationYear");
     validateNumberParams(price, "price");
     validateNumberParams(yearPublished, "yearPublished");
+    validateBoolParams(newAddition, "newAddition");
     validateBoolParams(popular, "popular");
     validateBoolParams(availableForRent, "availableForRent");
 }
@@ -238,6 +240,7 @@ async function addNewBook(
     publisher,
     title,
     yearPublished,
+    newAddition,
     popular,
     availableForRent
 ) {
@@ -255,6 +258,7 @@ async function addNewBook(
         publisher,
         title,
         yearPublished,
+        newAddition,
         popular,
         availableForRent
     );
@@ -280,6 +284,7 @@ async function addNewBook(
         publisher: publisher,
         title: title,
         yearPublished: yearPublished,
+        newAddition: newAddition,
         popular: popular,
         availableForRent: availableForRent,
     };

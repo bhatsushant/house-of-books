@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
-import noImage from "../assets/images/no-image.jpeg";
+import {Link, useParams} from "react-router-dom";
+import noImage from "../img/download.jpeg";
 import {
     makeStyles,
     Card,
@@ -10,7 +10,9 @@ import {
     CardContent,
     CardMedia,
     Typography,
+    CardHeader,
 } from "@material-ui/core";
+import "../App.css";
 const useStyles = makeStyles({
     card: {
         maxWidth: 550,
@@ -48,14 +50,14 @@ const NewAdditions = (props) => {
     const [loading, setLoading] = useState(true);
     const classes = useStyles();
     const [bookDetailsData, setBookDetailsData] = useState(undefined);
-    let { id } = useParams();
+    let {id} = useParams();
     let card = null;
     useEffect(() => {
         console.log("useEffect fired");
         async function fetchData() {
             try {
                 const url = `http://localhost:4000/books/newAdditions`;
-                const { data } = await axios.get(url);
+                const {data} = await axios.get(url);
                 console.log(data);
                 setBookDetailsData(data);
                 setLoading(false);
