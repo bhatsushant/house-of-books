@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-// configRoutes(app);
+configRoutes(app);
 
 app.listen(process.env.PORT || 4000, () => {
     console.log("We've now got a server!");
