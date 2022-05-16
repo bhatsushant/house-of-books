@@ -1,193 +1,226 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import FormInput from './FormInput';
 import { useNavigate } from 'react-router-dom';
 import Button from './Button';
 import '../styles/Signup.scss';
 import { UserContext } from '../contexts/userContext';
+import { Alert, Toast } from 'react-bootstrap';
 
 const defaultFormFields = {
-    ISBN: '',
-    title: '',
-    url: '',
-    description: '',
-    author: '',
-    averageRating: '',
-    binding: '',
-    genre: '',
-    numberofPages: '',
-    originalPublicationYear: '',
-    price: '',
-    publisher: '',
-    yearPublished: '',
-    reviews: [],
-    count: '',
+  ISBN: '',
+  title: '',
+  url: '',
+  description: '',
+  author: '',
+  averageRating: '',
+  binding: '',
+  genre: '',
+  numberofPages: '',
+  originalPublicationYear: '',
+  price: '',
+  publisher: '',
+  yearPublished: '',
+  reviews: [],
+  count: '',
 };
 
 export default function AddNewBook() {
-    const [formFields, setFormFields] = useState(defaultFormFields);
-    const {
-        ISBN,
-        title,
-        url,
-        description,
-        author,
-        // averageRating,
-        binding,
-        genre,
-        numberofPages,
-        originalPublicationYear,
-        price,
-        publisher,
-        yearPublished,
-        // reviews,
-        // count,
-    } = formFields;
-    const { setCurrentUser } = useContext(UserContext);
-    const navigate = useNavigate();
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const {
+    ISBN,
+    title,
+    url,
+    description,
+    author,
+    // averageRating,
+    binding,
+    genre,
+    numberofPages,
+    originalPublicationYear,
+    price,
+    publisher,
+    yearPublished,
+    // reviews,
+    // count,
+  } = formFields;
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
 
-    const resetFormFields = () => {
-        setFormFields(defaultFormFields);
-    };
-    const handleChange = (event) => {
-        const { name, value } = event.target;
+  const { setCurrentUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
-        setFormFields({ ...formFields, [name]: value });
-    };
-    const handleOnSubmit = async (event) => {
-        event.preventDefault();
+  useEffect(() => {
+    console.log('Form errors are ', formErrors);
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+    }
+  }, [formErrors]);
 
-        let dataBody = {
-            ISBN: ISBN,
-            title: title,
-            url: url,
-            description: description,
-            author: author,
-            // averageRating: 0,
-            binding: binding,
-            genre: genre,
-            numberofPages: numberofPages,
-            originalPublicationYear: originalPublicationYear,
-            price: price,
-            publisher: publisher,
-            yearPublished: yearPublished,
-            // reviews: [],
-            // count: 0,
-        };
-        axios
-            .post('http://localhost:4000/books/addNewBook', {
-                data: dataBody,
-            })
-            .then(function (response) {
-                console.log(response.data);
-                navigate('/books', { replace: true });
-            });
-    };
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-    return (
-        <div className="addnewbook-container">
-            AddNewBook
-            <form onSubmit={handleOnSubmit}>
-                <FormInput
-                    label="Title"
-                    type="text"
-                    required
-                    onChange={handleChange}
-                    value={title}
-                    name="title"
-                />
-                <FormInput
-                    label="ISBN"
-                    type="text"
-                    onChange={handleChange}
-                    value={ISBN}
-                    name="ISBN"
-                />
-                <FormInput
-                    label="Image URL"
-                    type="text"
-                    required
-                    onChange={handleChange}
-                    value={url}
-                    name="url"
-                />
-                <FormInput
-                    label="Author"
-                    type="text"
-                    required
-                    onChange={handleChange}
-                    value={author}
-                    name="author"
-                />
-                <FormInput
-                    label="Description"
-                    type="text"
-                    required
-                    onChange={handleChange}
-                    value={description}
-                    name="description"
-                />
+    setFormFields({ ...formFields, [name]: value });
+  };
 
-                <FormInput
-                    label="Genre"
-                    type="text"
-                    required
-                    onChange={handleChange}
-                    value={genre}
-                    name="genre"
-                />
-                <FormInput
-                    label="Paperback/HardCover"
-                    type="text"
-                    required
-                    onChange={handleChange}
-                    value={binding}
-                    name="binding"
-                />
+  const isArgumentString = (values) => {
+    let errors = {};
+    const webRegex = /^http(s)/;
+    console.log('Values are ', values);
+    if (!webRegex.test(values.url)) {
+      errors.url = `Invalid Image Url passed`;
+    }
 
-                <FormInput
-                    label="Pages"
-                    type="number"
-                    required
-                    onChange={handleChange}
-                    value={numberofPages}
-                    name="numberofPages"
-                />
-                <FormInput
-                    label="Price"
-                    type="number"
-                    required
-                    onChange={handleChange}
-                    value={price}
-                    name="price"
-                />
-                <FormInput
-                    label="Publisher"
-                    type="text"
-                    required
-                    onChange={handleChange}
-                    value={publisher}
-                    name="publisher"
-                />
-                <FormInput
-                    label="Original Publication Year"
-                    type="number"
-                    required
-                    onChange={handleChange}
-                    value={originalPublicationYear}
-                    name="originalPublicationYear"
-                />
+    if (parseInt(values.numberofPages) < 0) {
+      errors.numberofPages = `Pages cannot be less than 0`;
+    }
+    if (parseFloat(values.price) < 0) {
+      errors.price = `Price cannot be less than 0`;
+    }
+    if (
+      parseInt(values.originalPublicationYear) > 2022 &&
+      parseInt(values.originalPublicationYear) < 2000
+    ) {
+      errors.originalPublicationYear = `Year cannot be greater than current year`;
+    }
+    if (
+      parseInt(values.yearPublished) > 2022 &&
+      parseInt(values.yearPublished) < 2000
+    ) {
+      errors.yearPublished = `Year cannot be greater than current year`;
+    }
+    return errors;
+  };
 
-                <FormInput
-                    label="Year Published"
-                    type="number"
-                    required
-                    onChange={handleChange}
-                    value={yearPublished}
-                    name="yearPublished"
-                />
-                <Button type="submit">Submit</Button>
-            </form>
-        </div>
-    );
+  const handleOnSubmit = async (event) => {
+    event.preventDefault();
+    console.log('Before function call');
+    setFormErrors(isArgumentString(formFields));
+    console.log('After function call');
+
+    setIsSubmit(true);
+
+    if (Object.keys(formErrors).length === 0) {
+      let dataBody = {
+        ISBN: formFields.ISBN,
+        title: formFields.title,
+        url: formFields.url,
+        description: formFields.description,
+        author: formFields.author,
+        // averageRating: 0,
+        binding: formFields.binding,
+        genre: formFields.genre,
+        numberofPages: formFields.numberofPages,
+        price: formFields.price,
+        publisher: formFields.publisher,
+        // reviews: [],
+        // count: 0,
+      };
+      axios
+        .post('http://localhost:4000/books/addNewBook', {
+          data: dataBody,
+        })
+        .then(function (response) {
+          console.log(response.data);
+          navigate('/books', { replace: true });
+        });
+    }
+  };
+
+  return (
+    <div className='addnewbook-container'>
+      AddNewBook
+      <form onSubmit={handleOnSubmit}>
+        <FormInput
+          label='Title'
+          type='text'
+          required
+          onChange={handleChange}
+          value={title}
+          name='title'
+        />
+        <FormInput
+          label='ISBN'
+          type='text'
+          onChange={handleChange}
+          value={ISBN}
+          name='ISBN'
+        />
+        {formErrors.url && <Alert variant='danger'>{formErrors.url}</Alert>}
+        <FormInput
+          label='Image URL'
+          type='text'
+          required
+          onChange={handleChange}
+          value={url}
+          name='url'
+        />
+        <FormInput
+          label='Author'
+          type='text'
+          required
+          onChange={handleChange}
+          value={author}
+          name='author'
+        />
+        <FormInput
+          label='Description'
+          type='text'
+          required
+          onChange={handleChange}
+          value={description}
+          name='description'
+        />
+
+        <FormInput
+          label='Genre'
+          type='text'
+          required
+          onChange={handleChange}
+          value={genre}
+          name='genre'
+        />
+        <FormInput
+          label='Paperback/HardCover'
+          type='text'
+          required
+          onChange={handleChange}
+          value={binding}
+          name='binding'
+        />
+        {formErrors.numberofPages && (
+          <Alert variant='danger'>{formErrors.numberofPages}</Alert>
+        )}
+        <FormInput
+          label='Pages'
+          type='number'
+          required
+          onChange={handleChange}
+          value={numberofPages}
+          name='numberofPages'
+        />
+        {formErrors.price && <Alert variant='danger'>{formErrors.price}</Alert>}
+        <FormInput
+          label='Price'
+          type='number'
+          required
+          onChange={handleChange}
+          value={price}
+          name='price'
+        />
+        <FormInput
+          label='Publisher'
+          type='text'
+          required
+          onChange={handleChange}
+          value={publisher}
+          name='publisher'
+        />
+
+        <Button type='submit'>Submit</Button>
+      </form>
+    </div>
+  );
 }

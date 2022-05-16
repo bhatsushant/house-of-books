@@ -104,41 +104,45 @@ const Signup = () => {
       return;
     }
 
-    let dataBody = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phoneNumber: phoneNumber,
-      username: username,
-      password: password,
-      address: address,
-      city: city,
-      state: state,
-      zip: zip,
-    };
-    try {
-      await axios
-        .post('http://localhost:4000/users/signup', {
-          data: dataBody,
-        })
-        .then(function (response) {
-          console.log(response.data);
-          history('/', { replace: true });
-        });
-    } catch (error) {
-      // alert(error.response.data);
-      return;
-    }
+    console.log(Object.keys(formErrors).length);
+    if (Object.keys(formErrors).length === 0) {
+      console.log('Inside sign up keys');
+      let dataBody = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phoneNumber: phoneNumber,
+        username: username,
+        password: password,
+        address: address,
+        city: city,
+        state: state,
+        zip: zip,
+      };
+      try {
+        await axios
+          .post('http://localhost:4000/users/signup', {
+            data: dataBody,
+          })
+          .then(function (response) {
+            console.log(response.data);
+            history('/', { replace: true });
+          });
+      } catch (error) {
+        // alert(error.response.data);
+        return;
+      }
 
-    try {
-      const { user } = await createNativeUser(email, password);
-      setCurrentUser(user);
-      resetFormFields();
-    } catch (error) {
-      if (error.code === 'auth/email-already-in-use') {
-        alert('Cannot create user, email already exists');
-      } else {
-        console.log('Error creating user', error);
+      try {
+        const { user } = await createNativeUser(email, password);
+        setCurrentUser(user);
+        resetFormFields();
+      } catch (error) {
+        if (error.code === 'auth/email-already-in-use') {
+          alert('Cannot create user, email already exists');
+        } else {
+          console.log('Error creating user', error);
+        }
       }
     }
   };
