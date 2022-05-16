@@ -97,7 +97,7 @@ const Signin = () => {
           required
           onChange={handleChange}
           value={email}
-          name='email-signin'
+          name='email'
         />
         <FormInput
           label='Password'
@@ -105,7 +105,7 @@ const Signin = () => {
           required
           onChange={handleChange}
           value={password}
-          name='password-signin'
+          name='password'
         />
         <div className='buttons-container'>
           <Button type='submit'>Sign In</Button>
