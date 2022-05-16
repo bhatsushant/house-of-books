@@ -28,19 +28,18 @@ const App = () => {
         <Route exact path='/' element={<Home />} />
         <Route exact path='/books' element={<BooksList />} />
         <Route exact path='/books/:id' element={<BookDetails />} />
-        <Route exact path='/auth' element={<Authentication />} />
+        <Route path='/auth' element={<Authentication />} />
         <Route exact path='/books/newAdditions' element={<NewAdditions />} />
         <Route exact path='/library' element={<Library />} />
         <Route exact path='/books/mostPopular' element={<MostPopular />} />
         <Route exact path='/users/profile' element={<ProfilePage />} />
         <Route exact path='/users/myOrders' element={<MyOrders />} />
         <Route exact path='/users/bookshelf' element={<Bookshelf />} />
-        <Route exact path='/checkout' element={<Checkout />} />
-        <Route exact path='/books/addNewBook' element={<AddNewBook />} />
+        <Route path='/checkout' element={<Checkout />} />
+        <Route exact path='/books/addnewbook' element={<AddNewBook />} />
         <Route exact path='/users/rentedbooks' element={<RentedBooks />} />
         <Route exact path='/books/search/' element={<BookSearchDetails />} />
         <Route exact path='/books/genres' element={<BookGenres />} />
-        <Route exact path='*' element={<ErrorPage />} />
       </Routes>
     </div>
   );

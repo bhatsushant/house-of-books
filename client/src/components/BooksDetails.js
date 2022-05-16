@@ -268,7 +268,7 @@ const BookDetails = (props) => {
               ))}
             {user && !checkBook() && (
               <Button
-                className='wishlist'
+                className='button'
                 onClick={() =>
                   onClickWishlist(bookDetailsData._id, bookDetailsData.title)
                 }
@@ -279,8 +279,8 @@ const BookDetails = (props) => {
             )}
             {user && checkBook() && (
               <Button
+                className='button'
                 variant='danger'
-                className='wishlist'
                 onClick={() =>
                   handleRemoveWishlist(
                     bookDetailsData._id,
@@ -387,7 +387,9 @@ const BookDetails = (props) => {
                 <option value='5'>5 Stars</option>
               </select>
               <br></br> <br></br>
-              <Button type='submit'>Post Review</Button>
+              <Button type='submit' className='button'>
+                Post Review
+              </Button>
             </form>
           </div>
         ) : null}
@@ -407,7 +409,6 @@ const BookDetails = (props) => {
                   </p>
                   {auth.currentUser && auth.currentUser.email === email ? (
                     <button
-                      type='button'
                       className='button'
                       onClick={() => {
                         if (auth.currentUser) {
